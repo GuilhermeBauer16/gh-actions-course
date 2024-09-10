@@ -24,6 +24,11 @@ jobs:
   second_job:
     runs-on: ubuntu-latest
     steps:
+      - name: failed step
+        run: | 
+          echo "I will fail"
+          exit 1
+          
       - name: "say Goodbye"
         run: |
           echo "goodbye"
