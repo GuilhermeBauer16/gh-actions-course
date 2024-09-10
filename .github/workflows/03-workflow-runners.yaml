@@ -1,0 +1,26 @@
+name: 03 - Workflow Runners
+
+on:
+  workflow_dispatch: # Changed to trigger manually for testing
+
+jobs:
+  ubuntu-echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show ubuntu
+        shell: bash
+        run: echo "I'm running on bash"
+
+  windows-echo:
+    runs-on: windows-latest
+    steps:
+      - name: Show windows
+        shell: bash
+        run: echo "I'm running on bash"
+
+  macOs-echo:
+    runs-on: macos-latest
+    steps:
+      - name: Show Mac OS
+        shell: bash
+        run: echo "I'm running on bash"
