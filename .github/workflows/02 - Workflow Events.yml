@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: show the trigger
-        run: "I will show the trigger"
+        run: echo "I will show the trigger"
         
   echo_event:
   
