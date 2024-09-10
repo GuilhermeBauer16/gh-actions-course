@@ -11,7 +11,7 @@ jobs:
         shell: bash
         run: |
           echo "I'm running on bash"
-          echo " Runner Os RUNNER_OS"
+          echo " Runner Os $RUNNER_OS"
 
   windows-echo:
     runs-on: windows-latest
@@ -20,7 +20,7 @@ jobs:
         shell: bash
         run: |
           echo "I'm running on bash"
-          echo " Runner Os RUNNER_OS"
+          echo " Runner Os $RUNNER_OS"
 
   macOs-echo:
     runs-on: macos-latest
@@ -29,4 +29,4 @@ jobs:
         shell: bash
         run: |
           echo "I'm running on bash"
-          echo " Runner Os RUNNER_OS"
+          echo " Runner Os $RUNNER_OS"
