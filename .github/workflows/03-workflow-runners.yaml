@@ -9,18 +9,24 @@ jobs:
     steps:
       - name: Show ubuntu
         shell: bash
-        run: echo "I'm running on bash"
+        run: |
+          echo "I'm running on bash"
+          echo " Runner Os RUNNER_OS"
 
   windows-echo:
     runs-on: windows-latest
     steps:
       - name: Show windows
         shell: bash
-        run: echo "I'm running on bash"
+        run: |
+          echo "I'm running on bash"
+          echo " Runner Os RUNNER_OS"
 
   macOs-echo:
     runs-on: macos-latest
     steps:
       - name: Show Mac OS
         shell: bash
-        run: echo "I'm running on bash"
+        run: |
+          echo "I'm running on bash"
+          echo " Runner Os RUNNER_OS"
