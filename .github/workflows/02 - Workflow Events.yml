@@ -25,8 +25,9 @@ jobs:
         run: "I will show the trigger"
         
   echo_event:
-    runs_on: ubuntu-latest
+  
+    runs-on: ubuntu-latest
     steps:
       - name: show the event
-        run: echo "Event name: ${{ github.event_name }}"
+        run: echo "Event name ${{ github.event_name }}"
       
