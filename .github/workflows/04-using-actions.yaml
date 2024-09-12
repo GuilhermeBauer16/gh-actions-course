@@ -33,6 +33,10 @@ jobs:
           java-version: '21'
           
 
+      - name: Build Application Jar
+        run: mvn clean package
+          
+
       - name: Cache Maven packages
         uses: actions/cache@v3
         with:
