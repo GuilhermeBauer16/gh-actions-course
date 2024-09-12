@@ -2,8 +2,8 @@ name: 04 - Using Actions
 
 on:
 
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
 
   workflow_dispatch:
 
