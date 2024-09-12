@@ -19,6 +19,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Printing folder structure
+        run: |
+          echo "Printing folder structure"
+          ls -R
+          echo "Done printing folder structure"
+      
       
       - name: Set up JDK 21
         uses: actions/setup-java@v4
