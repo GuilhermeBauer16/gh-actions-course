@@ -26,7 +26,7 @@ jobs:
     steps:
     
     - name: Display informantion
-      uses: |
+      run: |
         echo "Event name= ${{ github.event_name }}"
         echo "Ref= ${{ github.ref }}"
         echo "SHA= ${{ github.sha }}"
