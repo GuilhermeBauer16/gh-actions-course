@@ -8,7 +8,7 @@
 
 name: 06 - Contexts.
 
-run-name:  My custom workflow run name  ${{ runner.os }}
+run-name: My custom workflow run - ${{ github.actor }} triggered a ${{ github.event_name }} event
 
 on:
   push:
@@ -34,5 +34,6 @@ jobs:
         echo "Workflow= ${{ github.workflow }}"
         echo "Run ID= ${{ github.run_id }}"
         echo "Run number= ${{ github.run_number }}"
+        echo "Run my var ${{ secrets.MY_VAR}}"
         
 
