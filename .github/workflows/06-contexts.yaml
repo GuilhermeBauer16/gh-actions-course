@@ -1,23 +1,25 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
 
 name: 06 - Contexts.
 
-run-name: My custom workflow run - ${{ github.actor }} triggered a ${{ github.event_name }} event
+run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
 
 on:
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
     
   workflow_dispatch:
+
+    inputs:
+      debug:
+        description: "Enable debug mode"
+        required: false
+        default: "false"
+        type: boolean
+  
       
 
 jobs:
+
 
   echo-data:
 
@@ -35,5 +37,7 @@ jobs:
         echo "Run ID= ${{ github.run_id }}"
         echo "Run number= ${{ github.run_number }}"
         echo "Run my var ${{ secrets.MY_VAR}}"
+        
+        
         
 
