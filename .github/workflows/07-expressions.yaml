@@ -31,7 +31,7 @@ jobs:
           echo "Runner OS: ${{ github.runner_os }}"
           
       - name: Print when
-        if: " ${{ github.ref }} == 'main' && inputs == true"
+        if: " ${{ github.ref }} == 'main' && inputs.debug == true"
         run: echo "I was triggered from main"
         
       - name: Print
