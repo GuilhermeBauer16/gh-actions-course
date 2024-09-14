@@ -15,7 +15,12 @@ on:
         required: false
         default: "false"
         type: boolean
-  
+
+
+env:
+
+  MY_WORKFLOW_VAR: 'workflow'
+  MY_OVERWRITTEN_VAR: 'new_workflow'
       
 
 jobs:
@@ -36,7 +41,9 @@ jobs:
         echo "Workflow= ${{ github.workflow }}"
         echo "Run ID= ${{ github.run_id }}"
         echo "Run number= ${{ github.run_number }}"
-        echo "Run my var ${{ secrets.MY_VAR}}"
+        echo "Run my var ${{ secrets.MY_VAR }}"
+        echo "Run my var ${{MY_WORKFLOW_VAR }}"
+        echo "Run my var ${{ MY_OVERWRITTEN_VAR }}"
         
         
         
