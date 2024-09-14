@@ -1,50 +1,36 @@
-
-name: 06 - Contexts.
+name: 06 - Contexts
 
 run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
 
 on:
-  # push:
-  #   branches: [ "main" ]
-    
   workflow_dispatch:
-
     inputs:
       debug:
         description: "Enable debug mode"
         required: false
-        default: "false"
-        type: boolean
-
+        default: false  # Boolean value, not a string
 
 env:
-
   MY_WORKFLOW_VAR: 'workflow'
   MY_OVERWRITTEN_VAR: 'new_workflow'
-      
 
 jobs:
-
-
   echo-data:
-
     runs-on: ubuntu-latest
 
     steps:
-    
-    - name: Display informantion
-      run: |
-        echo "Event name= ${{ github.event_name }}"
-        echo "Ref= ${{ github.ref }}"
-        echo "SHA= ${{ github.sha }}"
-        echo "Actor= ${{ github.actor }}"
-        echo "Workflow= ${{ github.workflow }}"
-        echo "Run ID= ${{ github.run_id }}"
-        echo "Run number= ${{ github.run_number }}"
-        echo "Run my var ${{ secrets.MY_VAR }}"
-        echo "Run my var ${{MY_WORKFLOW_VAR }}"
-        echo "Run my var ${{ MY_OVERWRITTEN_VAR }}"
-        
-        
-        
+      - name: Checkout code
+        uses: actions/checkout@v3
 
+      - name: Display information
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "SHA: ${{ github.sha }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Workflow: ${{ github.workflow }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Run number: ${{ github.run_number }}"
+          echo "Secret MY_VAR: ${{ secrets.MY_VAR }}"
+          echo "Env var MY_WORKFLOW_VAR: ${{ env.MY_WORKFLOW_VAR }}"
+          echo "Env var MY_OVERWRITTEN_VAR: ${{ env.MY_OVERWRITTEN_VAR }}"
