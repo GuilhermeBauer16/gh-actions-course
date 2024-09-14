@@ -31,6 +31,12 @@ jobs:
           echo "Workflow: ${{ github.workflow }}"
           echo "Run ID: ${{ github.run_id }}"
           echo "Run number: ${{ github.run_number }}"
+          
+
+      - name: print vars
+        env:
+          MY_OVERWRITTEN_VAR: 'job'
+        run: |
           echo "Secret MY_VAR: ${{ vars.MY_VAR }}"
           echo "Secret MY_VAR: ${{ secrets.MY_VAR }}"
           echo "Env var MY_WORKFLOW_VAR: ${{ env.MY_WORKFLOW_VAR }}"
