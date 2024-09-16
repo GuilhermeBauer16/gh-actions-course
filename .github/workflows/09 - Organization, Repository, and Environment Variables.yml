@@ -5,6 +5,11 @@ on:
     branches: [ "main" ]
     
   workflow_dispatch:
+
+env:
+  OVERWRITTEN: 'I am a workflow env var'
+  UNDEFINED_VAR_WITH_DEFAULT: ${{ vars.UNDEFINED_VAR || 'default value' }}
+  
     
 
 jobs:
@@ -16,3 +21,23 @@ jobs:
         run: |
           echo "ORG_VAR: ${{ secrets.ORG_VAR }}"
           echo "OVERWRITTEN_VAR: ${{ secrets.OVERWRITTEN_VAR }}"
+          echo "Repo var: ${{ secrets.REPOSITORY_VAR }}"
+          echo "Environment var: ${{ vars.TARGET_VAR }}"
+          
+
+  echo2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print repostory env
+        run: |
+          echo "Repo var: ${{ secrets.REPOSITORY_VAR }}
+
+  echo-undefined:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Undefined Variables
+        run: |
+          echo "Org var: ${{ env.UNDEFINED_VAR_WITH_DEFAULT }}"
+          
+  
