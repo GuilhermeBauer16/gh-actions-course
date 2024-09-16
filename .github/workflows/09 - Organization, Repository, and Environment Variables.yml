@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Print repostory env
         run: |
-          echo "Repo var: ${{ secrets.REPOSITORY_VAR }}
+          echo "Repo var: ${{ secrets.REPOSITORY_VAR }}"
 
   echo-undefined:
     runs-on: ubuntu-latest
