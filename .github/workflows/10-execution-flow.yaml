@@ -10,6 +10,7 @@ on:
       pass-unit-tests:
         type: boolean
         default: false
+        
 
 jobs:
   lint-build:
@@ -23,12 +24,13 @@ jobs:
   unit-tests:
 
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Running unit tests
         run: echo "Running tests..."
 
       - name: Failing tests
-        if: inputs.pass-unit-tests == false
+        if: inputs.pass-unit-tests == 'false'
         run: exit 1
 
   deploy-nonprod:
