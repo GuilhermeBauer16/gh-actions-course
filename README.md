@@ -1,3 +1,3 @@
 
-# GitHub Actions Course
+# GitHub Actions Courses
 
