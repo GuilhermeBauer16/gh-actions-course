@@ -1,0 +1,43 @@
+name: 06 - Contexts
+
+run-name: 06 - Contexts | DEBUG - ${{ inputs.debug }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      debug:
+        description: "Enable debug mode"
+        required: false
+        default: false  # Boolean value, not a string
+
+env:
+  MY_WORKFLOW_VAR: 'workflow'
+  MY_OVERWRITTEN_VAR: 'new_workflow'
+
+jobs:
+  echo-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Display information
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "SHA: ${{ github.sha }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Workflow: ${{ github.workflow }}"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Run number: ${{ github.run_number }}"
+          
+
+      - name: print vars
+        env:
+          MY_OVERWRITTEN_VAR: 'job'
+        run: |
+          echo "Secret MY_VAR: ${{ vars.MY_VAR }}"
+          echo "Secret MY_VAR: ${{ secrets.MY_VAR }}"
+          echo "Env var MY_WORKFLOW_VAR: ${{ env.MY_WORKFLOW_VAR }}"
+          echo "Env var MY_OVERWRITTEN_VAR: ${{ env.MY_OVERWRITTEN_VAR }}"
