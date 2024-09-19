@@ -17,6 +17,7 @@ on:
       target:
         description: "Which environment the workflow will target"
         type: environment
+        required: true
 
       tag:
         description: "Release from which to build and deploy"
@@ -26,12 +27,6 @@ on:
           - V2
           - V3
         default: V3
-
-
-        
-
-
-        
       
 
 jobs:
