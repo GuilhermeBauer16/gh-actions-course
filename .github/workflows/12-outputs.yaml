@@ -21,7 +21,7 @@ jobs:
   build1:
     runs-on: ubuntu latest
     outputs:
-      output1: ${{ status.build.outputs.output1 }}
+      output1: ${{ steps.build1.outputs.output1 }}
     steps:
       - name: build1
         id: build1
