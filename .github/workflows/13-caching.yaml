@@ -41,7 +41,7 @@ jobs:
           key: maven-${{ runner.os }}-${{ hashFiles('**/pom.xml') }}
 
       - name: Install dependencies
-        run: mvn install
+        run: mvn clean install
         if: ${{ steps.cache.outputs.cache-hit != 'true' }}
 
       - name: Testing
