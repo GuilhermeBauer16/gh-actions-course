@@ -67,7 +67,7 @@ jobs:
           cache-dependency-path: 'pom.xml' 
       
       - name: Download cached dependencies using install-deps job's cache key
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ needs.install-deps.outputs.deps-cache-key }}
