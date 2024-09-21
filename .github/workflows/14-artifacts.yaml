@@ -39,11 +39,13 @@ jobs:
           CACHE_KEY: deps-maven-${{ hashFiles('pom.xml') }}
   
       - name: Download cached dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: cache
         with:
           path: ~/.m2/repository
           key: ${{ env.CACHE_KEY }}
+          restore-keys: |
+              ${{ runner.os }}-maven-
   
       - name: Install dependencies
         run: mvn clean install
@@ -71,6 +73,8 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ needs.install-deps.outputs.deps-cache-key }}
+          restore-keys: |
+              ${{ runner.os }}-maven-
 
       - name: Testing
         run: mvn test
@@ -82,8 +86,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app
-          path: target/  # This is where Maven places the build artifacts
-
+          path: target/  
 
   deploy:
     runs-on: ubuntu-latest
