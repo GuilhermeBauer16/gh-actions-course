@@ -47,7 +47,6 @@ jobs:
           key: ${{ env.CACHE_KEY }}  # Ensure the key is supplied
           restore-keys: |
             deps-maven-
-
       - name: Install dependencies
         run: mvn clean install
         if: steps.cache.outputs.cache-hit != 'true'
