@@ -44,10 +44,9 @@ jobs:
         id: cache
         with:
           path: ~/.m2/repository
-          key: ${{ env.CACHE_KEY }}  # Added the required 'key' input
+          key: ${{ env.CACHE_KEY }}  # Ensure the key is supplied
           restore-keys: |
             deps-maven-
-        continue-on-error: true  # Optional: Continue even if the cache is not found
 
       - name: Install dependencies
         run: mvn clean install
@@ -86,7 +85,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app
-          path: target/  # This is where Maven places the build artifacts
+          path: target/  # Ensure this path points to where Maven stores the build artifacts
 
 
   deploy:
