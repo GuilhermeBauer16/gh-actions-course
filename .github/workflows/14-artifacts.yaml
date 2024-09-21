@@ -16,7 +16,6 @@ jobs:
 
   install-deps:
     runs-on: ubuntu-latest
-    
     outputs:
       deps-cache-key: ${{ steps.cache-key.outputs.CACHE_KEY }}
     
@@ -31,30 +30,24 @@ jobs:
           java-version: '21'
           cache: 'maven'
           cache-dependency-path: 'pom.xml' 
-      
-      - name: Ensure Maven is installed
-        run: |
-          echo "Installing Maven version ${{ github.event.inputs.maven-version }}"
-          sudo apt-get update
-          sudo apt-get install -y maven=${{ github.event.inputs.maven-version }}*
-
+  
       - name: Calculate cached dependencies key
         id: cache-key
         run: |
           echo "CACHE_KEY=deps-maven-${{ hashFiles('pom.xml') }}" >> $GITHUB_ENV
         env:
           CACHE_KEY: deps-maven-${{ hashFiles('pom.xml') }}
-
+  
       - name: Download cached dependencies
         uses: actions/cache@v3
         id: cache
         with:
           path: ~/.m2/repository
           key: ${{ env.CACHE_KEY }}
-
+  
       - name: Install dependencies
         run: mvn clean install
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: ${{ steps.cache.outputs.cache-hit != 'true' }}
 
 
   build:
