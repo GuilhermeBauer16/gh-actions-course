@@ -39,14 +39,14 @@ jobs:
         env:
           CACHE_KEY: deps-maven-${{ hashFiles('pom.xml') }}
 
-      - name: Download cached dependencies
+      - name: Cache local Maven repository
         uses: actions/cache@v4
-        id: cache
         with:
           path: ~/.m2/repository
-          key: ${{ env.CACHE_KEY }}  # Ensure the key is supplied
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
-            deps-maven-
+            ${{ runner.os }}-maven-
+            
       - name: Install dependencies
         run: mvn clean install
         if: steps.cache.outputs.cache-hit != 'true'
@@ -68,12 +68,13 @@ jobs:
           cache: 'maven'
           cache-dependency-path: 'pom.xml' 
       
-      - name: Download cached dependencies using install-deps job's cache key
+      - name: Cache local Maven repository
         uses: actions/cache@v4
         with:
           path: ~/.m2/repository
-          key: ${{ needs.install-deps.outputs.deps-cache-key }}
-
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Testing
         run: mvn test
 
@@ -84,7 +85,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app
-          path: target/  # Ensure this path points to where Maven stores the build artifacts
+          path: target/ 
 
 
   deploy:
