@@ -11,6 +11,11 @@ on:
           - 3.9.9
           - 3.6.3
         default: 3.9.9
+
+env:
+
+  build-artifact-key: app-${{ github.sha }}
+  test-coverage-key: test-coverage-${{github.sha }}
     
 jobs:
 
@@ -75,8 +80,15 @@ jobs:
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
+            
       - name: Testing
-        run: mvn test
+        run: mvn test jacoco:report
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.test-coverage-key }}
+          path: target/
 
       - name: Building
         run: mvn package
@@ -85,7 +97,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app
-          path: target/ 
+          path: target/*.jar 
 
 
   deploy:
