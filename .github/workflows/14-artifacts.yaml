@@ -13,10 +13,9 @@ on:
         default: 3.9.9
 
 env:
-
   build-artifact-key: app-${{ github.sha }}
-  test-coverage-key: test-coverage-${{github.sha }}
-    
+  test-coverage-key: test-coverage-${{ github.sha }}
+
 jobs:
 
   install-deps:
@@ -40,9 +39,7 @@ jobs:
       - name: Calculate cached dependencies key
         id: cache-key
         run: |
-          echo "CACHE_KEY=deps-maven-${{ hashFiles('pom.xml') }}" >> $GITHUB_ENV
-        env:
-          CACHE_KEY: deps-maven-${{ hashFiles('pom.xml') }}
+          echo "cache_key=deps-maven-${{ hashFiles('pom.xml') }}" >> $GITHUB_ENV
 
       - name: Cache local Maven repository
         uses: actions/cache@v4
@@ -54,7 +51,7 @@ jobs:
             
       - name: Install dependencies
         run: mvn clean install
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: steps.cache-key.outputs.cache-hit != 'true'
 
 
   build:
@@ -72,14 +69,16 @@ jobs:
           java-version: '21'
           cache: 'maven'
           cache-dependency-path: 'pom.xml' 
-      
+          
+       
       - name: Cache local Maven repository
         uses: actions/cache@v4
         with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
+         path: ~/.m2/repository
+         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+  
+         restore-keys: |
+           ${{ runner.os }}-maven-
             
       - name: Testing
         run: mvn test jacoco:report
@@ -88,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ env.test-coverage-key }}
-          path: target/
+          path: target/site/jacoco/
 
       - name: Building
         run: mvn package
@@ -96,7 +95,7 @@ jobs:
       - name: Upload build files
         uses: actions/upload-artifact@v4
         with:
-          name: app
+          name: ${{ env.build-artifact-key }}
           path: target/*.jar 
 
 
@@ -108,7 +107,7 @@ jobs:
       - name: Download build files
         uses: actions/download-artifact@v4
         with:
-          name: app
+          name: ${{ env.build-artifact-key }}
           path: build
 
       - name: Deploy to production
