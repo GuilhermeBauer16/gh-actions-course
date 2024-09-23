@@ -2,31 +2,26 @@ name: 15 - Working with Matrices
 
 on:
   workflow_dispatch:
-    
 
 jobs:
-
   backwards-compatibility:
     strategy:
       matrix:
-        name: ${{ matrix.os }}-${{ matrix.java-version }}
-        java-version: [11,17,21]
-        os:
+        java-version: [11, 17, 21]
+        os: 
           - ubuntu-latest
           - windows-latest
-          
-        include:
-          - os: ubuntu-latest
-            tag: linux
-            
-          - os: ubuntu-latest
-            java-version: 21
-          
+      fail-fast: false # Optional: continue running other jobs if one fails
 
     runs-on: ${{ matrix.os }}
     steps:
-      - name: echo "Printing "
-    
-    
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{ matrix.java-version }}
+
+      - name: Print environment
+        run: echo "Running on OS ${{ matrix.os }} with Java version ${{ matrix.java-version }}"
