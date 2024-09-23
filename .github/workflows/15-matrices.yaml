@@ -1,4 +1,3 @@
-
 name: 15 - Working with Matrices
 
 on:
@@ -24,6 +23,10 @@ jobs:
             java-version: 21
           
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: echo "Printing "
+    
+    
 
   
