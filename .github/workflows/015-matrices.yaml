@@ -11,7 +11,13 @@ jobs:
         os: 
           - ubuntu-latest
           - windows-latest
-      fail-fast: false # Optional: continue running other jobs if one fails
+        include:
+          - os: ubuntu-latest
+            java-version: 21
+            tag: experimental
+          - os: ubuntu-latest
+            java-version: 17
+      fail-fast: false 
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -26,5 +32,11 @@ jobs:
           cache: 'maven'
           cache-dependency-path: 'pom.xml' 
 
+      - name: Fail if experimental
+        if: ${{ matrix.tag == 'experimental' }}
+        run: exit 1
+
       - name: Print environment
-        run: echo "Running on OS ${{ matrix.os }} with Java version ${{ matrix.java-version }}"
+        run: |
+          echo "Running on OS ${{ matrix.os }} with Java version ${{ matrix.java-version }}"
+          sleep 10
