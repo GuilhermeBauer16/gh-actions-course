@@ -31,7 +31,7 @@ jobs:
           
         exclude:
           - color: green
-          - shape: circle
+            shape: circle
 
     steps:
       - name: Dummy step
@@ -67,14 +67,11 @@ jobs:
           cache: 'maven'
           cache-dependency-path: 'pom.xml' 
 
-      - name: Fail if experimental
-        if: ${{ matrix.tag == 'experimental' }}
-        run: exit 1
 
       - name: Print environment
         run: |
           echo "Running on OS ${{ matrix.os }} with Java version ${{ matrix.java-version }}"
-          sleep 10
+
 
 
     
