@@ -16,16 +16,18 @@ jobs:
         color: [red,green]
         shape: [circle,square]
         size: [small, large]
-        
         include:
         
-        - color: red
-          opacity: 75
-        - shape: triangle
-          opacity: 100
-        - color: red
-          shape: triangle
-        - opacity: 50
+          - color: red
+            opacity: 75
+          - shape: triangle
+            opacity: 100
+          - color: red
+            shape: triangle
+          - opacity: 50
+          
+        exclude:
+          - opacity: 75
 
     steps:
       - name: Dummy step
