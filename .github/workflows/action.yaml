@@ -1,0 +1,37 @@
+name: Cache Maven Dependencies
+description: This action allows caching Maven dependencies based on the pom.xml file.
+
+inputs:
+  java-version:
+    description: Java version to use
+    required: true
+    default: '17'
+
+  working-dir:
+    description: The working directory of the application
+    required: false
+    default: '.'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Java ${{ inputs.java-version }}
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: ${{ inputs.java-version }}
+
+    - name: Cache Maven Dependencies
+      id: cache-maven
+      uses: actions/cache@v3
+      with:
+        path: ${{ inputs.working-dir }}/.m2/repository
+        key: maven-${{ runner.os }}-${{ hashFiles(format('{0}/{1}', inputs.working-dir, 'pom.xml')) }}
+        restore-keys: |
+          maven-${{ runner.os }}-
+
+    - name: Install Maven Dependencies
+      if: steps.cache-maven.outputs.cache-hit != 'true'
+      run: mvn -B install
+      shell: bash
+      working-directory: ${{ inputs.working-dir }}
