@@ -1,0 +1,7 @@
+name: "Update Java Dependencies"
+description: "Checks if there are updates to Java dependencies in a maven Project"
+runs:
+  using: "composite"
+  steps:
+    - name: Check for Dependency Updates
+      run: mvn versions:display-dependency-updates
