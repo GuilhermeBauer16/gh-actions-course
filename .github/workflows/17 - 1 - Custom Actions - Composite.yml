@@ -1,0 +1,53 @@
+
+name: 17 - 1 - Custom Actions - Composite
+
+on:
+
+  workflow_dispatch:
+    inputs:
+      target-env:
+        description: "Select the target environment"
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+  
+
+env:
+  working-directory: '.'
+jobs:
+  build:
+
+  
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.working-directory }}
+
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v4
+      
+      - name: Set up JDK 21 and  Dependencies
+        uses: ./.github/actions/composite-cache-deps
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
+          cache-dependency-path: 'pom.xml' 
+          working-dir: ${{ env.working-directory }}
+          target-env: ${{  inputs.target-env }}
+
+
+      - name: Testing
+        run: mvn test 
+
+
+      - name: Building
+        run: mvn package
+
+
+
+
+          
