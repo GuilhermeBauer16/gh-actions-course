@@ -15,11 +15,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
+
     - name: Ping URL
       run: |
-        url="http://invalid-url.com"   # URL to check
-        max_trials=20                  # Maximum number of trials
-        delay=5                        # Delay between trials (seconds)
+        url="http://invalid-url.com"   
+        max_trials=20                  
+        delay=1                       
 
         echo "Pinging $url with $max_trials trials and $delay seconds delay."
 
@@ -36,6 +37,6 @@ jobs:
 
         if [[ $i -gt $max_trials ]]; then
           echo "Max trials reached. URL is still not reachable."
-          exit 1  
-      
+          exit 2  
+    
 
