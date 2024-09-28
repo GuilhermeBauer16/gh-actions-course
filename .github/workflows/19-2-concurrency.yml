@@ -1,0 +1,70 @@
+name: 19 - 2 - Managing Concurrency
+
+on:
+  # push:
+  #   branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
+  workflow_dispatch:
+    
+
+jobs:
+  ping-with-concurrency:
+
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+
+    - name: Ping URL
+      run: |
+        url="https://www.google.com/"   
+        max_trials=20                  
+        delay=2                       
+        echo "Pinging $url with $max_trials trials and $delay seconds delay."
+        # for ((i=1; i<=max_trials; i++)); do
+        #   # Use curl to check if the URL is reachable
+        #   if curl --head --silent --fail "$url"; then
+        #     echo "URL is reachable on trial $i!"
+        #     break
+        #   else
+        #     echo "Trial $i: URL is not reachable. Retrying in $delay seconds..."
+        #     sleep $delay
+        #   fi
+        done
+        if [[ $i -gt $max_trials ]]; then
+          echo "Max trials reached. URL is still not reachable."
+          exit 1  
+
+  ping-without-concurrency:
+
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+      
+      
+        - name: Ping URL
+          run: |
+            url="https://www.google.com/"   
+            max_trials=20                  
+            delay=2                       
+            echo "Pinging $url with $max_trials trials and $delay seconds delay."
+            # for ((i=1; i<=max_trials; i++)); do
+            #   # Use curl to check if the URL is reachable
+            #   if curl --head --silent --fail "$url"; then
+            #     echo "URL is reachable on trial $i!"
+            #     break
+            #   else
+            #     echo "Trial $i: URL is not reachable. Retrying in $delay seconds..."
+            #     sleep $delay
+            #   fi
+            done
+            if [[ $i -gt $max_trials ]]; then
+              echo "Max trials reached. URL is still not reachable."
+              exit 1  

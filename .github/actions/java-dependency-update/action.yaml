@@ -1,0 +1,27 @@
+name: Update Maven Dependencies with Spring Boot
+description: "Checks for updates to Maven dependencies and creates a PR with updated files."
+
+inputs:
+  base-branch:
+    description: "The branch used as the base for the dependency update checks."
+    default: "main"
+    required: false
+  target-branch:
+    description: "The branch from which the PR is created."
+    default: "update-dependencies"
+    required: false
+  working-directory:
+    description: "The working directory of the project to check for dependency updates."
+    required: true
+  gh-token:
+    description: "Authentication token with repository access. Must have write access to contents and pull requests."
+    required: true
+  debug:
+    description: "Whether to output debug messages to the console."
+    default: "false"
+    required: false
+
+runs:
+  using: "docker"
+  image: "maven:3.8.6-openjdk-11-slim"
+  args: ["mvn", "spring-boot:run"]
