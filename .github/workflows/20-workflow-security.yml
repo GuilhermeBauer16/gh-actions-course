@@ -36,7 +36,7 @@ jobs:
       - name: Check PR title
         run: |
           
-          if [[ env.TITLE =~ ^feat ]]; then
+          if [[ "$TITLE" =~ ^feat ]]; then
             echo "PR is a feature"
             exit 0
           else
