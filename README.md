@@ -1,3 +1,3 @@
  
-# GitHub Actions Courses.  edgfg
+# GitHub Actions Courses. 
 
