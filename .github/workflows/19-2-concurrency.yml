@@ -39,7 +39,7 @@ jobs:
         done
         if [[ $i -gt $max_trials ]]; then
           echo "Max trials reached. URL is still not reachable."
-          exit 2  
+          exit 1  
 
   ping-without-concurrency:
 
@@ -67,4 +67,4 @@ jobs:
             done
             if [[ $i -gt $max_trials ]]; then
               echo "Max trials reached. URL is still not reachable."
-              exit 2  
+              exit 1  
