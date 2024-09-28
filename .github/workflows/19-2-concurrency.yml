@@ -36,7 +36,7 @@ jobs:
         #     echo "Trial $i: URL is not reachable. Retrying in $delay seconds..."
         #     sleep $delay
         #   fi
-        # done
+        done
         if [[ $i -gt $max_trials ]]; then
           echo "Max trials reached. URL is still not reachable."
           exit 1  
@@ -64,7 +64,7 @@ jobs:
             #     echo "Trial $i: URL is not reachable. Retrying in $delay seconds..."
             #     sleep $delay
             #   fi
-            # done
+            done
             if [[ $i -gt $max_trials ]]; then
               echo "Max trials reached. URL is still not reachable."
               exit 1  
